@@ -16,7 +16,6 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    container: debian:bookworm
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -24,12 +23,6 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-
-      - name: Install dependencies
-        shell: bash
-        run: |
-          apt-get update
-          apt-get install -y build-essential
 
       - name: Run unit tests
         shell: bash
