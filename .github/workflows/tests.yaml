@@ -27,3 +27,22 @@ jobs:
       - name: Run unit tests
         shell: bash
         run: make test
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      
+      - name: Pull autograph image
+        shell: bash
+        run: docker pull mozilla/autograph
+
+      - name: Build autograph-edge
+        shell: bash
+        run: docker-compose build
+
+      - name: Sign test APKs and XPIs and verify the APK
+        shell: bash
+        run: docker-compose run test
