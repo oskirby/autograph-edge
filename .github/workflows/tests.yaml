@@ -41,8 +41,8 @@ jobs:
 
       - name: Build autograph-edge
         shell: bash
-        run: docker-compose build
+        run: docker compose build
 
       - name: Sign test APKs and XPIs and verify the APK
         shell: bash
-        run: docker-compose run test
+        run: docker compose run test
