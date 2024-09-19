@@ -28,7 +28,7 @@ jobs:
         with:
           images: |
             ${{ vars.DOCKERHUB_REPO }}
-            # ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GAR_REPOSITORY}}/autograph-edge
+            ${{ vars.GCP_PROJECT_ID && format('{0}-docker.pkg.dev/{1}/{2}/autograph-edge', vars.GAR_LOCATION, vars.GCP_PROJECT_ID, vars.GAR_REPOSITORY) }}
           tags: |
             type=semver,pattern={{raw}}
             type=raw,value=latest,enable={{is_default_branch}}
@@ -50,6 +50,7 @@ jobs:
           password: ${{ steps.gcp-auth.outputs.access_token }}
 
       - name: Login to Dockerhub
+        if: ${{ vars.DOCKERHUB_REPO }}
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
